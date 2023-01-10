@@ -9,7 +9,7 @@ function RootNavigation() {
   return (
     <NavigationContainer>
       <RootStack.Navigator>
-        <RootStack.Screen name="Home" component={HomeScreen} />
+        <RootStack.Screen name="Weather" component={HomeScreen} />
       </RootStack.Navigator>
     </NavigationContainer>
   );

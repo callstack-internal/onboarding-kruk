@@ -29,6 +29,7 @@ export const useWeatherStore = create<WeatherState>(set => ({
             temp: weather.main.temp,
             id: weather.id,
             name: weather.name,
+            iconcode: weather.weather[0].icon,
           });
           return acc;
         }, new Map() as CitiesList),

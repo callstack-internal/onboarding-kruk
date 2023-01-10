@@ -5,6 +5,7 @@ export interface CityWeather {
   description: string;
   name: string;
   id: number;
+  iconcode: string;
 }
 
 export type CitiesList = Map<string | number, CityWeather>;

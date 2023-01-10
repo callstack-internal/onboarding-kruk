@@ -1,7 +1,11 @@
-import {Text, FlatList, ListRenderItem} from 'react-native';
+import {FlatList, ListRenderItem} from 'react-native';
 import React, {useCallback, useEffect, useMemo} from 'react';
+
 import {useWeatherStore} from '../store/weatherStore';
 import {CityWeather} from '../types/ListOfCitiesTypes';
+import WeatherListItem, {
+  WeatherListItemProps,
+} from '../components/WeatherListItem';
 
 function HomeScreen() {
   const cities = useWeatherStore(state => state.cities);
@@ -17,10 +21,28 @@ function HomeScreen() {
     }
   }, [fetchAllCities]);
 
-  const renderItem = useCallback<ListRenderItem<CityWeather>>(({item}) => {
-    return <Text>{item.name}</Text>;
-  }, []);
+  const onItemPress = useCallback<
+    WeatherListItemProps['onPress']
+  >(() => {}, []);
+
+  const renderItem = useCallback<ListRenderItem<CityWeather>>(
+    ({item}) => {
+      return (
+        <WeatherListItem
+          id={item.id}
+          title={item.name}
+          temp={item.temp}
+          key={item.id}
+          iconcode={item.iconcode}
+          onPress={onItemPress}
+        />
+      );
+    },
+    [onItemPress],
+  );
+
   const data = useMemo(() => [...cities.values()], [cities]);
+
   return (
     <FlatList
       data={data}
