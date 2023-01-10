@@ -19,6 +19,7 @@ export interface WeatherListItemProps {
   units?: OWAvailableUnits;
   onPress: (id: OWCityCode, event: GestureResponderEvent) => void;
   id: OWCityCode;
+  description: string;
 }
 
 function WeatherListItem({
@@ -27,6 +28,7 @@ function WeatherListItem({
   units,
   iconcode,
   id,
+  description,
   onPress,
 }: WeatherListItemProps) {
   const onItemPress = useCallback<(event: GestureResponderEvent) => void>(
@@ -50,7 +52,10 @@ function WeatherListItem({
       />
 
       <View style={styles.mainContent}>
-        <Text>{title}</Text>
+        <View>
+          <Text style={styles.title}>{title}</Text>
+          <Text style={styles.description}>{description}</Text>
+        </View>
         <Chip>
           <Text>{temp}</Text>
           {units === 'metric' ? <Text> &deg; C</Text> : <Text> &deg; F</Text>}
@@ -77,6 +82,11 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
   },
   image: {width: 24, height: 24},
+  title: {
+    fontWeight: 'bold',
+    fontSize: 20,
+  },
+  description: {},
 });
 
 export default WeatherListItem;

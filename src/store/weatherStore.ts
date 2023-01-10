@@ -28,11 +28,15 @@ export const useWeatherStore = create<WeatherState>(set => ({
       set({
         cities: response.data.list.reduce((acc, weather) => {
           acc.set(weather.id, {
-            description: weather.weather[0].description,
+            description: weather.weather[0].main,
             temp: weather.main.temp,
             id: weather.id,
             name: weather.name,
             iconcode: weather.weather[0].icon,
+            humidity: weather.main.humidity,
+            windSpeed: weather.wind.speed,
+            clouds: weather.clouds.all,
+            pressure: weather.main.pressure,
           });
           return acc;
         }, new Map() as CitiesList),

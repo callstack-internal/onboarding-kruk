@@ -45,6 +45,7 @@ function HomeScreen({navigation}: HomeScreenProps) {
           iconcode={item.iconcode}
           onPress={onItemPress}
           units={defaultUnits}
+          description={item.description}
         />
       );
     },

@@ -7,6 +7,10 @@ export interface CityWeather {
   name: string;
   id: number;
   iconcode: string;
+  humidity: number;
+  windSpeed: number;
+  clouds: number;
+  pressure: number;
 }
 
 export type CitiesList = Map<OWCityCode, CityWeather>;
