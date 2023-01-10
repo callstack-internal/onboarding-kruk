@@ -18,14 +18,18 @@ function HomeScreen({navigation}: HomeScreenProps) {
   const defaultUnits = useWeatherStore(state => state.defaultUnits);
   const fetchAllCities = useWeatherStore(state => state.fetchAllCities);
 
-  useEffect(() => {
+  const refreshData = useCallback(async () => {
     try {
-      fetchAllCities(defaultUnits);
+      await fetchAllCities(defaultUnits);
     } catch (e) {
       console.log('fetch all cities error:', e);
       Toast.show('Cannot fetch data.', Toast.LONG);
     }
   }, [fetchAllCities, defaultUnits]);
+
+  useEffect(() => {
+    refreshData();
+  }, [fetchAllCities, defaultUnits, refreshData]);
 
   const onItemPress = useCallback<WeatherListItemProps['onPress']>(
     id => {
@@ -49,7 +53,7 @@ function HomeScreen({navigation}: HomeScreenProps) {
         />
       );
     },
-    [onItemPress],
+    [onItemPress, defaultUnits],
   );
 
   const data = useMemo(() => [...cities.values()], [cities]);
@@ -60,6 +64,7 @@ function HomeScreen({navigation}: HomeScreenProps) {
       renderItem={renderItem}
       keyExtractor={i => `${i.id}`}
       refreshing={loading}
+      onRefresh={refreshData}
     />
   );
 }
