@@ -1,5 +1,6 @@
 import {FlatList, ListRenderItem} from 'react-native';
 import React, {useCallback, useEffect, useMemo} from 'react';
+import Toast from 'react-native-simple-toast';
 
 import {useWeatherStore} from '../store/weatherStore';
 import {CityWeather} from '../types/ListOfCitiesTypes';
@@ -16,8 +17,8 @@ function HomeScreen() {
     try {
       fetchAllCities();
     } catch (e) {
-      // TODO: replace with UI info element
       console.log('fetch all cities error:', e);
+      Toast.show('Cannot fetch data.', Toast.LONG);
     }
   }, [fetchAllCities]);
 
