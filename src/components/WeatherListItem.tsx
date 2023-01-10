@@ -3,14 +3,12 @@ import {
   Text,
   StyleSheet,
   Pressable,
-  PressableProps,
-  Image,
   GestureResponderEvent,
 } from 'react-native';
 import React, {useCallback} from 'react';
 import FastImage from 'react-native-fast-image';
 
-import {OWAvailableUnits} from '../types/OpenWeatherTypes';
+import {OWCityCode, OWAvailableUnits} from '../types/OpenWeatherTypes';
 import {colorPallete} from '../resources/colors';
 import Chip from './Chip';
 
@@ -19,8 +17,8 @@ export interface WeatherListItemProps {
   temp: number;
   iconcode: string;
   units?: OWAvailableUnits;
-  onPress: (id: string | number, event: GestureResponderEvent) => void;
-  id: string | number;
+  onPress: (id: OWCityCode, event: GestureResponderEvent) => void;
+  id: OWCityCode;
 }
 
 function WeatherListItem({

@@ -56,3 +56,5 @@ export interface OWGroupResponse {
 }
 
 export type OWAvailableUnits = 'metric' | 'imperial';
+
+export type OWCityCode = string | number;

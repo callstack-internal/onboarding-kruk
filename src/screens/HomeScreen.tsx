@@ -1,14 +1,18 @@
 import {FlatList, ListRenderItem} from 'react-native';
 import React, {useCallback, useEffect, useMemo} from 'react';
 import Toast from 'react-native-simple-toast';
+import {NativeStackScreenProps} from '@react-navigation/native-stack';
 
 import {useWeatherStore} from '../store/weatherStore';
 import {CityWeather} from '../types/ListOfCitiesTypes';
 import WeatherListItem, {
   WeatherListItemProps,
 } from '../components/WeatherListItem';
+import {RootStackParamList} from '../types/RootStackTypes';
 
-function HomeScreen() {
+type HomeScreenProps = NativeStackScreenProps<RootStackParamList, 'Weather'>;
+
+function HomeScreen({navigation}: HomeScreenProps) {
   const cities = useWeatherStore(state => state.cities);
   const loading = useWeatherStore(state => state.loading);
   const defaultUnits = useWeatherStore(state => state.defaultUnits);
@@ -23,9 +27,12 @@ function HomeScreen() {
     }
   }, [fetchAllCities, defaultUnits]);
 
-  const onItemPress = useCallback<
-    WeatherListItemProps['onPress']
-  >(() => {}, []);
+  const onItemPress = useCallback<WeatherListItemProps['onPress']>(
+    id => {
+      navigation.navigate('Details', {cityId: id});
+    },
+    [navigation],
+  );
 
   const renderItem = useCallback<ListRenderItem<CityWeather>>(
     ({item}) => {
