@@ -3,7 +3,7 @@ import React, {FC} from 'react';
 import {colorPallete} from '../resources/colors';
 
 export interface ChipProps {
-  children: string;
+  children: JSX.Element | JSX.Element[];
 }
 
 const Chip: FC<ChipProps> = ({children}) => {

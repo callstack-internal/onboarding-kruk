@@ -10,6 +10,7 @@ import {
 import React, {useCallback} from 'react';
 import FastImage from 'react-native-fast-image';
 
+import {OWAvailableUnits} from '../types/OpenWeatherTypes';
 import {colorPallete} from '../resources/colors';
 import Chip from './Chip';
 
@@ -17,7 +18,7 @@ export interface WeatherListItemProps {
   title: string;
   temp: number;
   iconcode: string;
-  units?: string;
+  units?: OWAvailableUnits;
   onPress: (id: string | number, event: GestureResponderEvent) => void;
   id: string | number;
 }
@@ -52,7 +53,10 @@ function WeatherListItem({
 
       <View style={styles.mainContent}>
         <Text>{title}</Text>
-        <Chip>{`${temp} ${units ? units : 'F'}`}</Chip>
+        <Chip>
+          <Text>{temp}</Text>
+          {units === 'metric' ? <Text> &deg; C</Text> : <Text> &deg; F</Text>}
+        </Chip>
       </View>
       <Text>&gt;</Text>
     </Pressable>

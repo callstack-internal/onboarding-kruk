@@ -1,26 +1,29 @@
+import Config from 'react-native-config';
 import create from 'zustand';
 import {CITIES_LIST} from '../resources/citiesList';
 import {getGroupWeather} from '../services/weatherService';
 import {CitiesList} from '../types/ListOfCitiesTypes';
-import {OWCityWeather} from '../types/OpenWeatherTypes';
+import {OWAvailableUnits, OWCityWeather} from '../types/OpenWeatherTypes';
 import {enumValues} from '../utilities/enumUtilities';
 
 interface WeatherState {
   cities: CitiesList;
   cityWeather: OWCityWeather | null;
   loading: boolean;
-  fetchAllCities: () => Promise<void>;
+  defaultUnits: OWAvailableUnits;
+  fetchAllCities: (units?: OWAvailableUnits) => Promise<void>;
 }
 
 export const useWeatherStore = create<WeatherState>(set => ({
   cities: new Map(),
   cityWeather: null,
   loading: false,
-  fetchAllCities: async () => {
+  defaultUnits: Config.DEFAULT_UNITS,
+  fetchAllCities: async (units: OWAvailableUnits = 'metric') => {
     set({
       loading: true,
     });
-    const response = await getGroupWeather(enumValues(CITIES_LIST));
+    const response = await getGroupWeather(enumValues(CITIES_LIST), units);
     if (response.status === 200) {
       set({
         cities: response.data.list.reduce((acc, weather) => {

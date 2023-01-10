@@ -11,16 +11,17 @@ import WeatherListItem, {
 function HomeScreen() {
   const cities = useWeatherStore(state => state.cities);
   const loading = useWeatherStore(state => state.loading);
+  const defaultUnits = useWeatherStore(state => state.defaultUnits);
   const fetchAllCities = useWeatherStore(state => state.fetchAllCities);
 
   useEffect(() => {
     try {
-      fetchAllCities();
+      fetchAllCities(defaultUnits);
     } catch (e) {
       console.log('fetch all cities error:', e);
       Toast.show('Cannot fetch data.', Toast.LONG);
     }
-  }, [fetchAllCities]);
+  }, [fetchAllCities, defaultUnits]);
 
   const onItemPress = useCallback<
     WeatherListItemProps['onPress']
@@ -36,6 +37,7 @@ function HomeScreen() {
           key={item.id}
           iconcode={item.iconcode}
           onPress={onItemPress}
+          units={defaultUnits}
         />
       );
     },
