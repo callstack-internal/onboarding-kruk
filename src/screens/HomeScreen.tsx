@@ -8,12 +8,11 @@ function HomeScreen() {
   const loading = useWeatherStore(state => state.loading);
   const fetchAllCities = useWeatherStore(state => state.fetchAllCities);
 
-  console.log('cities: ', cities);
-
   useEffect(() => {
     try {
       fetchAllCities();
     } catch (e) {
+      // TODO: replace with UI info element
       console.log('fetch all cities error:', e);
     }
   }, [fetchAllCities]);

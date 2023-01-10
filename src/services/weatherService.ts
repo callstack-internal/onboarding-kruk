@@ -14,7 +14,6 @@ const weatherService = () => {
 };
 
 export const getGroupWeather = (cityIds: AvailableCitiesCodes[]) => {
-  console.log('weatherService', weatherService().getUri());
   return weatherService().get<OWGroupResponse>('/group', {
     params: {
       id: cityIds.join(','),
