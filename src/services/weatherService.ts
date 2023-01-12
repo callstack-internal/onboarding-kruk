@@ -1,7 +1,7 @@
 import axios from 'axios';
 import Config from 'react-native-config';
 import {AvailableCitiesCodes} from '../types/ListOfCitiesTypes';
-import {OWGroupResponse} from '../types/OpenWeatherTypes';
+import {OWAvailableUnits, OWGroupResponse} from '../types/OpenWeatherTypes';
 
 const weatherService = () => {
   return axios.create({
@@ -13,10 +13,14 @@ const weatherService = () => {
   });
 };
 
-export const getGroupWeather = (cityIds: AvailableCitiesCodes[]) => {
+export const getGroupWeather = (
+  cityIds: AvailableCitiesCodes[],
+  units: OWAvailableUnits = 'metric',
+) => {
   return weatherService().get<OWGroupResponse>('/group', {
     params: {
       id: cityIds.join(','),
+      units,
     },
   });
 };

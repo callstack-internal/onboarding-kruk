@@ -54,3 +54,7 @@ export interface OWGroupResponse {
   cnt: number;
   list: OWCityWeather[];
 }
+
+export type OWAvailableUnits = 'metric' | 'imperial';
+
+export type OWCityCode = string | number;
