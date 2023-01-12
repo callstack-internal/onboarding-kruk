@@ -6,7 +6,7 @@ import {CitiesList} from '../types/ListOfCitiesTypes';
 import {OWAvailableUnits, OWCityWeather} from '../types/OpenWeatherTypes';
 import {enumValues} from '../utilities/enumUtilities';
 
-interface WeatherState {
+export interface WeatherState {
   cities: CitiesList;
   cityWeather: OWCityWeather | null;
   loading: boolean;

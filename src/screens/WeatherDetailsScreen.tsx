@@ -9,7 +9,7 @@ import {colorPallete} from '../resources/colors';
 import Chip from '../components/Chip';
 import WeatherCondListItem from '../components/WeatherCondListItem';
 
-type WeatherDetailsScreenProps = NativeStackScreenProps<
+export type WeatherDetailsScreenProps = NativeStackScreenProps<
   RootStackParamList,
   'Details'
 >;
@@ -18,6 +18,12 @@ const WeatherDetailsScreen = ({route}: WeatherDetailsScreenProps) => {
   const {cityId} = route.params;
   const city = useWeatherStore(state => state.cities.get(cityId));
   const units = useWeatherStore(state => state.defaultUnits);
+  if (!city)
+    return (
+      <Text testID="fallback-message">
+        There is no data about selected city
+      </Text>
+    );
   return (
     <View>
       <View style={styles.headerContainer}>
