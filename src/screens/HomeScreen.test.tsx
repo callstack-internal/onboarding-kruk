@@ -68,6 +68,7 @@ describe('HomeScreen', () => {
   let props: HomeScreenProps;
   beforeEach(() => {
     props = createTestNavProps();
+    jest.useFakeTimers();
   });
 
   test('should render empty list', async () => {

@@ -1,9 +1,10 @@
 import React from 'react';
 import {render, screen, waitFor} from '@testing-library/react-native';
+
+import {WeatherState} from '../store/weatherStore';
 import WeatherDetailsScreen, {
   WeatherDetailsScreenProps,
 } from './WeatherDetailsScreen';
-import {WeatherState} from '../store/weatherStore';
 
 const createTestNavProps = (): any => ({
   navigation: {
@@ -17,6 +18,7 @@ describe('WeatherDetailsScreen', () => {
   let props: WeatherDetailsScreenProps;
   beforeEach(() => {
     props = createTestNavProps();
+    jest.useFakeTimers();
   });
   test('should show fallback if there is no data by city id', () => {
     jest.mock(

@@ -1,6 +1,13 @@
-import {FlatList, ListRenderItem, Text} from 'react-native';
+import {
+  ActionSheetIOS,
+  Alert,
+  FlatList,
+  ListRenderItem,
+  Platform,
+  Text,
+  ToastAndroid,
+} from 'react-native';
 import React, {useCallback, useEffect, useMemo} from 'react';
-import Toast from 'react-native-simple-toast';
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
 
 import {useWeatherStore} from '../store/weatherStore';
@@ -25,7 +32,9 @@ function HomeScreen({navigation}: HomeScreenProps) {
     try {
       await fetchAllCities(defaultUnits);
     } catch (e) {
-      Toast.show('Cannot fetch data.', Toast.LONG);
+      Platform.OS === 'ios'
+        ? Alert.alert('Error', 'Cannot fetch data.')
+        : ToastAndroid.show('Cannot fetch data.', ToastAndroid.LONG);
     }
   }, [fetchAllCities, defaultUnits]);
 
@@ -70,6 +79,7 @@ function HomeScreen({navigation}: HomeScreenProps) {
       keyExtractor={i => `${i.id}`}
       refreshing={loading}
       onRefresh={refreshData}
+      testID="cities-list"
     />
   );
 }
