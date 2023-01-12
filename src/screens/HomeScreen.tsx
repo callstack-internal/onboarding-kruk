@@ -22,7 +22,6 @@ function HomeScreen({navigation}: HomeScreenProps) {
     try {
       await fetchAllCities(defaultUnits);
     } catch (e) {
-      console.log('fetch all cities error:', e);
       Toast.show('Cannot fetch data.', Toast.LONG);
     }
   }, [fetchAllCities, defaultUnits]);
