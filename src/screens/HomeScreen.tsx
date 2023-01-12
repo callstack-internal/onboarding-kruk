@@ -10,7 +10,10 @@ import WeatherListItem, {
 } from '../components/WeatherListItem';
 import {RootStackParamList} from '../types/RootStackTypes';
 
-type HomeScreenProps = NativeStackScreenProps<RootStackParamList, 'Weather'>;
+export type HomeScreenProps = NativeStackScreenProps<
+  RootStackParamList,
+  'Weather'
+>;
 
 function HomeScreen({navigation}: HomeScreenProps) {
   const cities = useWeatherStore(state => state.cities);

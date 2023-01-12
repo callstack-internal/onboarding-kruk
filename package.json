@@ -27,6 +27,8 @@
     "@babel/runtime": "^7.12.5",
     "@callstack/eslint-config": "^13.0.2",
     "@react-native-community/eslint-config": "^2.0.0",
+    "@testing-library/jest-native": "^5.4.1",
+    "@testing-library/react-native": "^11.5.0",
     "@tsconfig/react-native": "^2.0.2",
     "@types/jest": "^26.0.23",
     "@types/react": "^18.0.21",
@@ -51,6 +53,19 @@
       "jsx",
       "json",
       "node"
+    ],
+    "setupFiles": [
+      "<rootDir>/src/jest/setup/index.ts"
+    ],
+    "setupFilesAfterEnv": [
+      "@testing-library/jest-native/extend-expect"
+    ],
+    "moduleNameMapper": {
+      "\\.(jpg|jpeg|png|svg)$": "<rootDir>/src/jest/setup/fileMock.ts",
+      "axios": "axios/dist/node/axios.cjs"
+    },
+    "transformIgnorePatterns": [
+      "node_modules/axios"
     ]
   }
 }

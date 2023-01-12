@@ -41,7 +41,8 @@ function WeatherListItem({
     <Pressable
       style={styles.container}
       onPress={onItemPress}
-      accessibilityLabel={title}>
+      accessibilityLabel={title}
+      testID={title}>
       <FastImage
         style={styles.image}
         source={{
