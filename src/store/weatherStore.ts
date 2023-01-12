@@ -24,7 +24,7 @@ export const useWeatherStore = create<WeatherState>(set => ({
       loading: true,
     });
     const response = await getGroupWeather(enumValues(CITIES_LIST), units);
-    if (response?.status === 200) {
+    if (response?.status === 200 && response?.data?.list?.length) {
       set({
         cities: response.data.list.reduce((acc, weather) => {
           acc.set(weather.id, {

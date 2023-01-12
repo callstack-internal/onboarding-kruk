@@ -55,13 +55,13 @@
       "node"
     ],
     "setupFiles": [
-      "<rootDir>/src/jest/setup/index.ts"
+      "<rootDir>/jest/setup/index.ts"
     ],
     "setupFilesAfterEnv": [
       "@testing-library/jest-native/extend-expect"
     ],
     "moduleNameMapper": {
-      "\\.(jpg|jpeg|png|svg)$": "<rootDir>/src/jest/setup/fileMock.ts",
+      "\\.(jpg|jpeg|png|svg)$": "<rootDir>/jest/setup/fileMock.ts",
       "axios": "axios/dist/node/axios.cjs"
     },
     "transformIgnorePatterns": [

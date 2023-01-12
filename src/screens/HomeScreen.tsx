@@ -1,4 +1,4 @@
-import {FlatList, ListRenderItem} from 'react-native';
+import {FlatList, ListRenderItem, Text} from 'react-native';
 import React, {useCallback, useEffect, useMemo} from 'react';
 import Toast from 'react-native-simple-toast';
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
@@ -59,6 +59,9 @@ function HomeScreen({navigation}: HomeScreenProps) {
   );
 
   const data = useMemo(() => [...cities.values()], [cities]);
+
+  if (!data.length)
+    return <Text testID="no-data-element">There is no data</Text>;
 
   return (
     <FlatList

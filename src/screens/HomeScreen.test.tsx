@@ -10,7 +10,7 @@ import mockAxios from 'axios';
 import HomeScreen, {HomeScreenProps} from './HomeScreen';
 
 const exampleResponse = {
-  cnt: 3,
+  cnt: 1,
   list: [
     {
       coord: {
@@ -63,23 +63,36 @@ const createTestNavProps = (): any => ({
   },
   route: {key: '', name: 'Weather' as 'Weather'},
 });
-test('press on the city should navigate to the Details screen with city id in route params', async () => {
-  (mockAxios.get as jest.Mock).mockResolvedValue({
-    data: exampleResponse,
-    status: 200,
-  });
-  const props = createTestNavProps() as HomeScreenProps;
-  render(<HomeScreen {...props} />);
-  await waitFor(() => {
-    expect(screen.queryByTestId('Test city')).not.toBeNull();
-  });
-  // const renderedScreen = screen.debug();
 
-  const cityItem = screen.queryByTestId('Test city');
-  if (cityItem) {
-    fireEvent.press(cityItem);
-    expect(props.navigation.navigate).toHaveBeenCalledWith('Details', {
-      cityId: 111111,
+describe('HomeScreen', () => {
+  let props: HomeScreenProps;
+  beforeEach(() => {
+    props = createTestNavProps();
+  });
+
+  test('should render empty list', async () => {
+    render(<HomeScreen {...props} />);
+    await waitFor(() => {
+      expect(screen.queryByTestId('no-data-element')).toBeDefined();
     });
-  }
+  });
+  test('press on the city should navigate to the Details screen with city id in route params', async () => {
+    (mockAxios.get as jest.Mock).mockResolvedValue({
+      data: exampleResponse,
+      status: 200,
+    });
+
+    render(<HomeScreen {...props} />);
+
+    await waitFor(() => {
+      expect(screen.queryByTestId('Test city')).not.toBeNull();
+    });
+    const cityItem = screen.queryByTestId('Test city');
+    if (cityItem) {
+      fireEvent.press(cityItem);
+      expect(props.navigation.navigate).toHaveBeenCalledWith('Details', {
+        cityId: 111111,
+      });
+    }
+  });
 });
