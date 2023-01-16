@@ -49,7 +49,6 @@ function HomeScreen({navigation}: HomeScreenProps) {
       const pushNotification = NativeModules.PushNotificationTrigger;
       const city = cities.get(id);
       if (city) {
-        console.log('city', city);
         await pushNotification.showNotification(
           city.name,
           `${city.description} ${city.temp}${tempUnit(defaultUnits)}`,
