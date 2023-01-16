@@ -1,20 +1,24 @@
 import axios from 'axios';
 import Config from 'react-native-config';
-import {AvailableCitiesCodes} from '../types/ListOfCitiesTypes';
-import {OWAvailableUnits, OWGroupResponse} from '../types/OpenWeatherTypes';
+import {
+  OWAvailableUnits,
+  OWCityCode,
+  OWGroupResponse,
+} from '../types/OpenWeatherTypes';
 
 const weatherService = () => {
-  return axios.create({
+  const instance = axios.create({
     baseURL: Config.WEATHER_API_URL,
     timeout: 1000,
     params: {
       appId: Config.WEATHER_API_KEY,
     },
   });
+  return instance;
 };
 
 export const getGroupWeather = (
-  cityIds: AvailableCitiesCodes[],
+  cityIds: OWCityCode[],
   units: OWAvailableUnits = 'metric',
 ) => {
   return weatherService().get<OWGroupResponse>('/group', {

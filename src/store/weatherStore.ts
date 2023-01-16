@@ -6,7 +6,7 @@ import {CitiesList} from '../types/ListOfCitiesTypes';
 import {OWAvailableUnits, OWCityWeather} from '../types/OpenWeatherTypes';
 import {enumValues} from '../utilities/enumUtilities';
 
-interface WeatherState {
+export interface WeatherState {
   cities: CitiesList;
   cityWeather: OWCityWeather | null;
   loading: boolean;
@@ -24,7 +24,7 @@ export const useWeatherStore = create<WeatherState>(set => ({
       loading: true,
     });
     const response = await getGroupWeather(enumValues(CITIES_LIST), units);
-    if (response.status === 200) {
+    if (response?.status === 200 && response?.data?.list?.length) {
       set({
         cities: response.data.list.reduce((acc, weather) => {
           acc.set(weather.id, {
