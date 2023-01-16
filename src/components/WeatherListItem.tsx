@@ -11,6 +11,7 @@ import FastImage from 'react-native-fast-image';
 import {OWCityCode, OWAvailableUnits} from '../types/OpenWeatherTypes';
 import {colorPallete} from '../resources/colors';
 import Chip from './Chip';
+import {tempUnit} from '../utilities/unitsUtilities';
 
 export interface WeatherListItemProps {
   title: string;
@@ -59,7 +60,7 @@ function WeatherListItem({
         </View>
         <Chip>
           <Text>{temp}</Text>
-          {units === 'metric' ? <Text> &deg; C</Text> : <Text> &deg; F</Text>}
+          {typeof units === 'string' ? <Text>{tempUnit(units)}</Text> : <></>}
         </Chip>
       </View>
       <Text>&gt;</Text>
