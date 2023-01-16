@@ -1,11 +1,11 @@
 import {
-  ActionSheetIOS,
   Alert,
   FlatList,
   ListRenderItem,
   Platform,
   Text,
   ToastAndroid,
+  NativeModules,
 } from 'react-native';
 import React, {useCallback, useEffect, useMemo} from 'react';
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
@@ -16,6 +16,7 @@ import WeatherListItem, {
   WeatherListItemProps,
 } from '../components/WeatherListItem';
 import {RootStackParamList} from '../types/RootStackTypes';
+import {tempUnit} from '../utilities/unitsUtilities';
 
 export type HomeScreenProps = NativeStackScreenProps<
   RootStackParamList,
@@ -43,10 +44,19 @@ function HomeScreen({navigation}: HomeScreenProps) {
   }, [fetchAllCities, defaultUnits, refreshData]);
 
   const onItemPress = useCallback<WeatherListItemProps['onPress']>(
-    id => {
+    async id => {
       navigation.navigate('Details', {cityId: id});
+      const pushNotification = NativeModules.PushNotificationTrigger;
+      const city = cities.get(id);
+      if (city) {
+        console.log('city', city);
+        await pushNotification.showNotification(
+          city.name,
+          `${city.description} ${city.temp}${tempUnit(defaultUnits)}`,
+        );
+      }
     },
-    [navigation],
+    [navigation, cities, defaultUnits],
   );
 
   const renderItem = useCallback<ListRenderItem<CityWeather>>(
